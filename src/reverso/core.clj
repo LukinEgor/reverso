@@ -1,4 +1,4 @@
-(ns multitran-cli.core
+(ns reverso.core
   (:require [clojure.string :as str]
             [clj-http.client :as client]))
 
@@ -19,33 +19,30 @@
      (nth 1)
      (remove-tags)))
 
+;; TODO refactoring
 (defn extract [content]
   (let [source-column (re-seq SOURCE_COLUMN_PATTERN content)
         target-column (re-seq TARGET_COLUMN_PATTERN content)]
-    (map
-     vector
-     (map #(transform %) source-column)
-     (map #(transform %) target-column))))
+    (->> (map
+          vector
+          (map (fn [item] { :source (transform item) }) source-column)
+          (map (fn [item] { :target (transform item) }) target-column))
+         (map (fn [[t s]] (merge t s))))))
 
-(defn format-phraze [phraze]
-  (str/replace phraze #"\s+" "+"))
+(defn format-text [text]
+  (str/replace text #"\s+" "+"))
 
-(defn compose-url
-  ([phraze] (compose-url phraze "english" "russian"))
-  ([phraze source-lang target-lang]
-   (str host "translation/" source-lang "-" target-lang "/" (format-phraze phraze))))
+(defn compose-url [text source target]
+  (str host "translation/" source "-" target "/" (format-text text)))
 
-(defn fetch [phraze]
-  (-> phraze
-      (compose-url)
+(defn fetch [text source target]
+  (-> (compose-url text source target)
       (client/get
        {:headers
         {"User-Agent" (rand-nth user-agents),
          "Accept" accept-header}})))
 
-(defn fetch-and-extract
-  [phraze]
-  (-> phraze
-      (fetch)
+(defn search [text source target]
+  (-> (fetch text source target)
       (:body)
       (extract)))

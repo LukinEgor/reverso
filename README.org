@@ -1,0 +1,11 @@
+* Reverso Context cli tool
+** Build
+#+begin_src sh
+lein bin
+sudo cp target/multitran-cli-0.1.0-SNAPSHOT /usr/local/bin/reverso
+#+end_src
+
+** Usage
+#+begin_src sh
+reverso search --target russian --source english --text="hello world"
+#+end_src
