@@ -1,6 +1,6 @@
-(defproject reverso "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+(defproject reverso "0.0.1"
+  :description "Tool for searching in Reverso Context"
+  :url "https://github.com/LukinEgor/reverso"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
