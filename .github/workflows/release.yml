@@ -1,12 +1,9 @@
-# on:
-#   release:
-#     types: [created]
 on: push
 
-name: Handle Release
+name: Handle Commit
 jobs:
   generate:
-    name: Create release-artifacts
+    name: handle commit
     runs-on: ubuntu-latest
     container: clojure:openjdk-8-lein-2.9.8-buster
     steps:
@@ -21,6 +18,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           lein bin
+
 
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
