@@ -56,9 +56,15 @@
   (println msg)
   (System/exit status))
 
+(defn generate-emacs-string [items]
+  (doseq [item items]
+    (println (:source item))
+    (println (str (:target item) "\n"))))
+
 (defn pretty-print [items format]
   (case format
-    (= format "json") (println (generate-string items {:pretty true}))))
+    "json" (println (generate-string items {:pretty true}))
+    "emacs" (generate-emacs-string items)))
 
 (defn -main [& args]
   (let [{:keys [action options exit-message ok?]} (validate-args args)]
@@ -66,4 +72,4 @@
       (exit (if ok? 0 1) exit-message)
       (let [{:keys [target origin text format]} options]
         (case action
-          "search"  ((pretty-print (search text origin target) format)))))))
+          "search"  (pretty-print (search text origin target) format))))))
