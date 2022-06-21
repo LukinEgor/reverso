@@ -13,12 +13,18 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@master
 
+      - name: Run test
+        run: |
+          lein test
+
       - name: Generate the artifacts
+        if: startsWith(github.ref, 'refs/tags/')
         run: |
           lein bin
 
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           name: reverso-0.1.0
           path: target/reverso-0.1.0-SNAPSHOT
