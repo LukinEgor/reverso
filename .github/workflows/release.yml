@@ -1,0 +1,32 @@
+# on:
+#   release:
+#     types: [created]
+name: Build
+
+on: push
+
+name: Handle Release
+jobs:
+  generate:
+    name: Create release-artifacts
+    container: clojure:openjdk-8-lein-2.9.8-buster
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@master
+
+      - name: Generate the artifacts
+        run: |
+          lein bin
+
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: reverso-0.1.0
+          path: target/reverso-0.1.0-SNAPSHOT
+
+      - name: Upload the artifacts
+        uses: skx/github-action-publish-binaries@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: 'reverso'
