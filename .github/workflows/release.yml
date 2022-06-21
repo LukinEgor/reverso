@@ -23,4 +23,4 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: target/reverso-${{ env.GITHUB_REF_NAME }}
+          files: target/reverso-${{ github.ref_name }}
