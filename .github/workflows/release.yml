@@ -7,6 +7,7 @@ name: Handle Release
 jobs:
   generate:
     name: Create release-artifacts
+    runs-on: ubuntu-latest
     container: clojure:openjdk-8-lein-2.9.8-buster
     steps:
       - name: Checkout the repository
