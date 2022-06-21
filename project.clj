@@ -1,4 +1,4 @@
-(defproject reverso "0.0.1"
+(defproject reverso "0.0.2"
   :description "Tool for searching in Reverso Context"
   :url "https://github.com/LukinEgor/reverso"
   :license {:name "Eclipse Public License"

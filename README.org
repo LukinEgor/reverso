@@ -9,5 +9,5 @@ sudo cp target/reverso-0.0.1 /usr/local/bin/reverso
 #+begin_src sh
 reverso search --target russian --source english --text="hello world" --format json
 
-reverso search --target russian --source english --text="hello world" --format emacs
+reverso search --target russian --source english --text="Привет, мир" --format emacs
 #+end_src
