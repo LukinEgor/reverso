@@ -2,7 +2,7 @@
 ** Build
 #+begin_src sh
 lein bin
-sudo cp target/reverso-0.1.0-SNAPSHOT /usr/local/bin/reverso
+sudo cp target/reverso-0.0.1 /usr/local/bin/reverso
 #+end_src
 
 ** Usage
